@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Gainer Groceries</title>
+    <meta name="description" content="Complete your grocery order checkout with Gainer Groceries">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+        
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .checkout-header h1 {
+            color: #2c7a2c;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .checkout-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .checkout-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .order-summary {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .order-summary h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .cart-items-summary {
+            margin-bottom: 2rem;
+        }
+        
+        .cart-item-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+        
+        .item-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .item-price {
+            font-weight: 600;
+            color: #2c7a2c;
+            font-size: 1.1rem;
+        }
+        
+        .order-totals {
+            border-top: 2px solid #e0e0e0;
+            padding-top: 1rem;
+        }
+        
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            color: #666;
+        }
+        
+        .total-line.final {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #333;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 0.8rem;
+        }
+        
+        .checkout-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .checkout-form h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-section h3 {
+            color: #2c7a2c;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2c7a2c;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .payment-option {
+            position: relative;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .payment-option.selected {
+            border-color: #2c7a2c;
+            background: #f8fff8;
+        }
+        
+        .payment-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .payment-icon {
+            font-size: 1.5rem;
+            color: #2c7a2c;
+        }
+        
+        .checkout-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn-primary {
+            background: #2c7a2c;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            flex: 1;
+        }
+        
+        .btn-primary:hover {
+            background: #236623;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            flex: 1;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .whatsapp-checkout {
+            background: #25d366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .whatsapp-checkout:hover {
+            background: #128c7e;
+        }
+        
+        .delivery-info {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2c7a2c;
+        }
+        
+        .delivery-info h4 {
+            color: #2c7a2c;
+            margin-bottom: 1rem;
+        }
+        
+        .delivery-info ul {
+            margin-left: 1.5rem;
+            color: #666;
+        }
+        
+        .delivery-info li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .empty-cart i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-cart h3 {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-cart p {
+            color: #999;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .checkout-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .order-summary {
+                position: static;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkout-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="logo.png" alt="Gainer Groceries" class="logo-img">
+                    <div class="logo-text">
+                        <h1>Gainer Groceries</h1>
+                        <p>Checkout</p>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#shop">Shop</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="cart-btn" onclick="goToShop()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h1>Checkout</h1>
+            <p>Complete your order and get it delivered tomorrow!</p>
+        </div>
+
+        <div id="checkout-content" class="checkout-content">
+            <!-- Checkout form will be loaded here -->
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gainer Groceries</h3>
+                    <p>Your Online Supermarket in Harare, Zimbabwe</p>
+                    <div class="contact-info">
+                        <p><i class="fab fa-whatsapp"></i> +263 713749230</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Harare, Zimbabwe</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html#shop">Shop</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="index.html#delivery">Delivery Info</a></li>
+                        <li><a href="legal-pages.html">Legal Pages</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gainer Groceries. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize checkout page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCheckoutPage();
+        });
+
+        function loadCheckoutPage() {
+            const cart = JSON.parse(sessionStorage.getItem('gainerCart') || '[]');
+            
+            if (cart.length === 0) {
+                showEmptyCart();
+                return;
+            }
+            
+            renderCheckoutPage(cart);
+        }
+
+        function showEmptyCart() {
+            const checkoutContent = document.getElementById('checkout-content');
+            checkoutContent.innerHTML = `
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Your cart is empty</h3>
+                    <p>Add some delicious groceries to your cart before checking out!</p>
+                    <button class="btn-primary" onclick="goToShop()">
+                        <i class="fas fa-arrow-left"></i> Continue Shopping
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderCheckoutPage(cart) {
+            const checkoutContent = document.getElementById('checkout-content');
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = calculateDeliveryFee(subtotal);
+            const total = subtotal + deliveryFee;
+            
+            checkoutContent.innerHTML = `
+                <div class="order-summary">
+                    <h2>Order Summary</h2>
+                    <div class="cart-items-summary">
+                        ${cart.map(item => `
+                            <div class="cart-item-summary">
+                                <div class="item-info">
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-details">${item.quantity} x $${item.price.toFixed(2)}</div>
+                                </div>
+                                <div class="item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="order-totals">
+                        <div class="total-line">
+                            <span>Subtotal:</span>
+                            <span>$${subtotal.toFixed(2)}</span>
+                        </div>
+                        <div class="total-line">
+                            <span>Delivery Fee:</span>
+                            <span>${deliveryFee === 0 ? 'FREE' : '$' + deliveryFee.toFixed(2)}</span>
+                        </div>
+                        <div class="total-line final">
+                            <span>Total:</span>
+                            <span>$${total.toFixed(2)}</span>
+                        </div>
+                    </div>
+                    ${subtotal < 80 ? `<div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-top: 15px; font-size: 14px; color: #92400e;">
+                        <i class="fas fa-info-circle"></i> Delivery: $4 (CBD, 15km radius). Free for orders $80+.
+                    </div>` : ''}
+                </div>
+                
+                <div class="checkout-form">
+                    <h2>Delivery Information</h2>
+                    
+                    <div class="delivery-info">
+                        <h4><i class="fas fa-truck"></i> Delivery Details</h4>
+                        <ul>
+                            <li><strong>Minimum Order: $20</strong></li>
+                            <li>Harare CBD: $4 USD</li>
+                            <li>15km radius from CBD</li>
+                            <li>Orders by 7PM for next-day delivery</li>
+                            <li><strong>Free delivery for orders $80 and above</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <form id="customer-checkout-form" onsubmit="processCustomerCheckout(event)">
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> Personal Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="0774899928">
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> Delivery Address</h3>
+                            <div class="form-group">
+                                <label for="address">Street Address *</label>
+                                <input type="text" id="address" name="address" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="area">Area/Suburb *</label>
+                                    <input type="text" id="area" name="area" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" name="city" value="Harare" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3><i class="fas fa-clock"></i> Preferred Delivery Time</h3>
+                            <div class="payment-methods">
+                                <label class="payment-option">
+                                    <input type="radio" name="deliveryTime" value="morning" required>
+                                    <div class="payment-label">
+                                        <i class="fas fa-sun payment-icon"></i>
+                                        <span>Morning (8AM - 12PM)</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="deliveryTime" value="afternoon">
+                                    <div class="payment-label">
+                                        <i class="fas fa-cloud-sun payment-icon"></i>
+                                        <span>Afternoon (12PM - 5PM)</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="deliveryTime" value="evening">
+                                    <div class="payment-label">
+                                        <i class="fas fa-moon payment-icon"></i>
+                                        <span>Evening (5PM - 8PM)</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="deliveryTime" value="asap">
+                                    <div class="payment-label">
+                                        <i class="fas fa-bolt payment-icon"></i>
+                                        <span>ASAP (Earliest Available)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
+                            <div class="payment-methods">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="cash-usd" required>
+                                    <div class="payment-label">
+                                        <i class="fas fa-money-bill-wave payment-icon"></i>
+                                        <span>Cash (USD)</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="cash-zwl">
+                                    <div class="payment-label">
+                                        <i class="fas fa-money-bill-wave payment-icon"></i>
+                                        <span>Cash (ZWL)</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="ecocash">
+                                    <div class="payment-label">
+                                        <i class="fas fa-mobile-alt payment-icon"></i>
+                                        <span>EcoCash</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3><i class="fas fa-comment"></i> Order Notes</h3>
+                            <div class="form-group">
+                                <label for="notes">Special Instructions (Optional)</label>
+                                <textarea id="notes" name="notes" placeholder="Any special delivery instructions or requests..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="checkout-actions">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-check"></i> Place Order
+                            </button>
+                            <button type="button" class="btn-secondary whatsapp-checkout" onclick="checkoutViaWhatsApp()">
+                                <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            // Add delivery time option selection functionality
+            setupDeliveryTimeOptions();
+        }
+
+        function setupDeliveryTimeOptions() {
+            const deliveryTimeOptions = document.querySelectorAll('input[name="deliveryTime"]');
+            deliveryTimeOptions.forEach(option => {
+                option.closest('.payment-option').addEventListener('click', function() {
+                    deliveryTimeOptions.forEach(opt => opt.closest('.payment-option').classList.remove('selected'));
+                    this.classList.add('selected');
+                    this.querySelector('input[type="radio"]').checked = true;
+                });
+            });
+        }
+
+        function setupPaymentOptions() {
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    this.querySelector('input[type="radio"]').checked = true;
+                });
+            });
+        }
+
+        function calculateDeliveryFee(subtotal) {
+            if (subtotal >= 80) return 0; // Free delivery for $80+
+            return 4; // $4 USD for CBD delivery (15km radius)
+        }
+
+        function processCustomerCheckout(event) {
+            event.preventDefault();
+            
+            const cart = JSON.parse(sessionStorage.getItem('gainerCart') || '[]');
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Check minimum order ($20)
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            if (subtotal < 20) {
+                alert(`Minimum order amount is $20. Your current order is $${subtotal.toFixed(2)}. Please add $${(20 - subtotal).toFixed(2)} more to proceed.`);
+                return;
+            }
+            
+            const formData = new FormData(event.target);
+            const orderId = Date.now();
+            const now = new Date();
+            const total = subtotal + calculateDeliveryFee(subtotal);
+            
+            const orderData = {
+                // Core order data for admin dashboard
+                id: orderId,
+                customerName: `${formData.get('firstName')} ${formData.get('lastName')}`,
+                total: total,
+                status: 'new',
+                date: now.toISOString(),
+                
+                // Detailed customer info
+                customer: {
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone')
+                },
+                
+                // Delivery info
+                delivery: {
+                    address: formData.get('address'),
+                    area: formData.get('area'),
+                    city: formData.get('city')
+                },
+                
+                // Order details
+                payment: formData.get('payment'),
+                deliveryTime: formData.get('deliveryTime'),
+                notes: formData.get('notes'),
+                items: cart,
+                subtotal: subtotal,
+                deliveryFee: calculateDeliveryFee(subtotal),
+                timestamp: now.toISOString(),
+                
+                // Delivery tracking fields
+                deliveryStatus: 'pending',
+                driverId: null,
+                zone: 'default',
+                lastUpdated: now.toISOString()
+            };
+            
+            // 1. SAVE ORDER
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push(orderData);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // 2. UPDATE OR CREATE CUSTOMER
+            updateCustomerRecord(orderData.customer, orderId, total);
+            
+            // 3. UPDATE SALES ANALYTICS
+            updateSalesAnalytics(total, cart);
+            
+            // 4. SEND ADMIN NOTIFICATION
+            sendAdminNotification(orderData);
+            
+            // Show success message
+            showOrderConfirmation(orderData);
+        }
+
+        // Update or create customer record
+        function updateCustomerRecord(customer, orderId, orderTotal) {
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            const existingCustomer = customers.find(c => c.email === customer.email || c.phone === customer.phone);
+            
+            if (existingCustomer) {
+                // Update existing customer
+                existingCustomer.totalOrders = (existingCustomer.totalOrders || 0) + 1;
+                existingCustomer.totalSpent = (existingCustomer.totalSpent || 0) + orderTotal;
+                existingCustomer.lastOrderDate = new Date().toISOString();
+                existingCustomer.lastOrderId = orderId;
+            } else {
+                // Create new customer
+                const newCustomer = {
+                    id: Date.now(),
+                    name: `${customer.firstName} ${customer.lastName}`,
+                    email: customer.email,
+                    phone: customer.phone,
+                    status: 'active',
+                    totalOrders: 1,
+                    totalSpent: orderTotal,
+                    firstOrderDate: new Date().toISOString(),
+                    lastOrderDate: new Date().toISOString(),
+                    lastOrderId: orderId
+                };
+                customers.push(newCustomer);
+            }
+            
+            localStorage.setItem('customers', JSON.stringify(customers));
+            
+            // Notify admin dashboard of new customer
+            localStorage.setItem('adminNotification', JSON.stringify({
+                type: 'newCustomer',
+                data: { email: customer.email },
+                timestamp: Date.now()
+            }));
+        }
+
+        // Update sales analytics
+        function updateSalesAnalytics(orderTotal, cart) {
+            const today = new Date().toDateString();
+            const now = new Date();
+            
+            // Get or initialize analytics
+            let analytics = JSON.parse(localStorage.getItem('salesAnalytics') || '{}');
+            if (!analytics.daily) analytics.daily = {};
+            if (!analytics.weekly) analytics.weekly = {};
+            if (!analytics.monthly) analytics.monthly = {};
+            if (!analytics.bestSellers) analytics.bestSellers = {};
+            
+            // Update daily stats
+            if (!analytics.daily[today]) {
+                analytics.daily[today] = { revenue: 0, orders: 0 };
+            }
+            analytics.daily[today].revenue += orderTotal;
+            analytics.daily[today].orders += 1;
+            
+            // Update weekly stats
+            const weekKey = getWeekKey(now);
+            if (!analytics.weekly[weekKey]) {
+                analytics.weekly[weekKey] = { revenue: 0, orders: 0 };
+            }
+            analytics.weekly[weekKey].revenue += orderTotal;
+            analytics.weekly[weekKey].orders += 1;
+            
+            // Update monthly stats
+            const monthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
+            if (!analytics.monthly[monthKey]) {
+                analytics.monthly[monthKey] = { revenue: 0, orders: 0 };
+            }
+            analytics.monthly[monthKey].revenue += orderTotal;
+            analytics.monthly[monthKey].orders += 1;
+            
+            // Update best sellers
+            cart.forEach(item => {
+                if (!analytics.bestSellers[item.id]) {
+                    analytics.bestSellers[item.id] = {
+                        id: item.id,
+                        name: item.name,
+                        quantity: 0,
+                        revenue: 0
+                    };
+                }
+                analytics.bestSellers[item.id].quantity += item.quantity;
+                analytics.bestSellers[item.id].revenue += item.price * item.quantity;
+            });
+            
+            localStorage.setItem('salesAnalytics', JSON.stringify(analytics));
+        }
+
+        function getWeekKey(date) {
+            const d = new Date(date);
+            d.setHours(0, 0, 0, 0);
+            d.setDate(d.getDate() - d.getDay());
+            return d.toDateString();
+        }
+
+        // Send admin notification via WhatsApp and localStorage
+        function sendAdminNotification(orderData) {
+            // Send WhatsApp notification
+            const adminPhone = '263713749230';
+            let adminMessage = `📦 *NEW ORDER RECEIVED - #${orderData.id}*\n\n`;
+            adminMessage += `*Customer:* ${orderData.customerName}\n`;
+            adminMessage += `*Phone:* ${orderData.customer.phone}\n`;
+            adminMessage += `*Email:* ${orderData.customer.email || 'N/A'}\n\n`;
+            adminMessage += `*Delivery Address:*\n${orderData.delivery.address}, ${orderData.delivery.area}, ${orderData.delivery.city}\n\n`;
+            adminMessage += `*Delivery Time:* ${orderData.deliveryTime || 'Not specified'}\n`;
+            adminMessage += `*Payment:* ${orderData.payment}\n`;
+            adminMessage += `*Total:* $${orderData.total.toFixed(2)}\n\n`;
+            adminMessage += `*Items:*\n`;
+            orderData.items.forEach(item => {
+                adminMessage += `${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            adminMessage += `\n*Status:* Pending Delivery`;
+            
+            window.open(`https://wa.me/${adminPhone}?text=${encodeURIComponent(adminMessage)}`, '_blank');
+            
+            // Send email notification
+            const emailSubject = encodeURIComponent(`New Order #${orderData.id} - Gainer Groceries`);
+            const emailBody = encodeURIComponent(adminMessage.replace(/\n/g, '\n'));
+            window.open(`mailto:gainergroceries@gmail.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
+            
+            // Notify admin dashboard
+            localStorage.setItem('adminNotification', JSON.stringify({
+                type: 'newOrder',
+                data: orderData,
+                timestamp: Date.now()
+            }));
+            localStorage.setItem('adminDataTimestamp', Date.now().toString());
+        }
+
+        function checkoutViaWhatsApp() {
+            const cart = JSON.parse(sessionStorage.getItem('gainerCart') || '[]');
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Get customer details from form
+            const firstName = document.getElementById('firstName')?.value || '[Not provided]';
+            const lastName = document.getElementById('lastName')?.value || '[Not provided]';
+            const phone = document.getElementById('phone')?.value || '[Not provided]';
+            const email = document.getElementById('email')?.value || '[Not provided]';
+            const address = document.getElementById('address')?.value || '[Not provided]';
+            const area = document.getElementById('area')?.value || '[Not provided]';
+            const city = document.getElementById('city')?.value || 'Harare';
+            const notes = document.getElementById('notes')?.value || 'None';
+            
+            // Get selected payment method and delivery time
+            const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value || 'Not selected';
+            const deliveryTime = document.querySelector('input[name="deliveryTime"]:checked')?.value || 'Not selected';
+            
+            let deliveryTimeText = '';
+            switch(deliveryTime) {
+                case 'morning': deliveryTimeText = 'Morning (8AM - 12PM)'; break;
+                case 'afternoon': deliveryTimeText = 'Afternoon (12PM - 5PM)'; break;
+                case 'evening': deliveryTimeText = 'Evening (5PM - 8PM)'; break;
+                case 'asap': deliveryTimeText = 'ASAP (Earliest Available)'; break;
+                default: deliveryTimeText = deliveryTime;
+            }
+            
+            let paymentText = '';
+            switch(paymentMethod) {
+                case 'cash-usd': paymentText = 'Cash (USD)'; break;
+                case 'cash-zwl': paymentText = 'Cash (ZWL)'; break;
+                case 'ecocash': paymentText = 'EcoCash'; break;
+                default: paymentText = paymentMethod;
+            }
+            
+            // Calculate totals
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = calculateDeliveryFee(subtotal);
+            const total = subtotal + deliveryFee;
+            
+            const phoneNumber = '263713749230';
+            let message = `🛒 *NEW ORDER - CHECKOUT*\n\n`;
+            message += `*Customer Information:*\n`;
+            message += `Name: ${firstName} ${lastName}\n`;
+            message += `Phone: ${phone}\n`;
+            message += `Email: ${email}\n\n`;
+            message += `*Delivery Address:*\n`;
+            message += `${address}\n`;
+            message += `${area}, ${city}\n\n`;
+            message += `*Order Items:*\n`;
+            
+            cart.forEach(item => {
+                message += `${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            
+            message += `\n*Order Total:*\n`;
+            message += `Subtotal: $${subtotal.toFixed(2)}\n`;
+            message += `Delivery: $${deliveryFee.toFixed(2)}\n`;
+            message += `*Total: $${total.toFixed(2)}*\n\n`;
+            message += `*Preferred Delivery Time:* ${deliveryTimeText}\n`;
+            message += `*Payment Method:* ${paymentText}\n\n`;
+            message += `*Special Instructions:* ${notes}\n\n`;
+            message += `*Delivery:* Harare - Next Day\n`;
+            message += `Please confirm order details and delivery time.`;
+            
+            window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function showOrderConfirmation(orderData) {
+            const checkoutContent = document.getElementById('checkout-content');
+            checkoutContent.innerHTML = `
+                <div class="order-confirmation">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: #2c7a2c; margin-bottom: 1rem;"></i>
+                    <h2>Order Placed Successfully!</h2>
+                    <p>Thank you for your order! We'll deliver it tomorrow.</p>
+                    <div class="order-details">
+                        <h4>Order Details:</h4>
+                        <p><strong>Order ID:</strong> #${Date.now()}</p>
+                        <p><strong>Name:</strong> ${orderData.customer.firstName} ${orderData.customer.lastName}</p>
+                        <p><strong>Phone:</strong> ${orderData.customer.phone}</p>
+                        <p><strong>Address:</strong> ${orderData.delivery.address}, ${orderData.delivery.area}, ${orderData.delivery.city}</p>
+                        <p><strong>Delivery Time:</strong> ${orderData.deliveryTime || 'Not specified'}</p>
+                        <p><strong>Payment:</strong> ${orderData.payment}</p>
+                        <p><strong>Total:</strong> $${(orderData.subtotal + orderData.deliveryFee).toFixed(2)}</p>
+                    </div>
+                    </div>
+                </div>
+            `;
+            
+            // Clear cart
+            sessionStorage.removeItem('gainerCart');
+            updateCartCount();
+        }
+
+        function goToShop() {
+            window.location.href = 'index.html#shop';
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(sessionStorage.getItem('gainerCart') || '[]');
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Pages - Gainer Groceries</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .legal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+        .legal-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .legal-logo {
+            height: 60px;
+            width: auto;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .legal-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .legal-header-text h1 {
+            color: #2c7a2c;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .legal-header-text p {
+            color: #666;
+            font-size: 1rem;
+            margin: 0;
+        }
+        .legal-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        .legal-nav a {
+            color: #2c7a2c;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 2px solid #2c7a2c;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+        .legal-nav a:hover,
+        .legal-nav a.active {
+            background: #2c7a2c;
+            color: white;
+        }
+        .legal-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: none;
+        }
+        .legal-section.active {
+            display: block;
+        }
+        .legal-section h2 {
+            color: #2c7a2c;
+            margin-bottom: 1.5rem;
+        }
+        .legal-section h3 {
+            color: #333;
+            margin: 1.5rem 0 1rem;
+        }
+        .legal-section p,
+        .legal-section li {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .legal-section ul {
+            margin-left: 2rem;
+        }
+        .back-to-home {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .back-to-home a {
+            background: #2c7a2c;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .back-to-home a:hover {
+            background: #236623;
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-container">
+        <div class="legal-header">
+            <img src="logo.png" alt="Gainer Groceries" class="legal-logo">
+            <div class="legal-header-text">
+                <h1>Gainer Groceries</h1>
+                <p>Legal Information & Policies</p>
+            </div>
+        </div>
+
+        <div class="legal-nav">
+            <a href="#terms" class="nav-link active" onclick="showSection('terms')">Terms & Conditions</a>
+            <a href="#privacy" class="nav-link" onclick="showSection('privacy')">Privacy Policy</a>
+            <a href="#returns" class="nav-link" onclick="showSection('returns')">Refund & Returns</a>
+            <a href="#delivery" class="nav-link" onclick="showSection('delivery')">Delivery Policy</a>
+        </div>
+
+        <!-- Terms & Conditions -->
+        <div id="terms" class="legal-section active">
+            <h2>Terms & Conditions</h2>
+            <p><strong>Last Updated:</strong> January 2024</p>
+            
+            <h3>1. Acceptance of Terms</h3>
+            <p>By accessing and using Gainer Groceries' website and services, you accept and agree to be bound by these Terms & Conditions. If you do not agree to these terms, please do not use our services.</p>
+            
+            <h3>2. Orders and Payment</h3>
+            <ul>
+                <li>All orders must meet the minimum order value of $20</li>
+                <li>Orders must be placed by 7:00 PM for next-day delivery</li>
+                <li>We accept Cash (USD/ZWL) and EcoCash payments</li>
+                <li>Cash payments are made upon delivery</li>
+                <li>EcoCash payments must be completed before delivery</li>
+                <li>Prices are subject to change without prior notice</li>
+            </ul>
+            
+            <h3>3. Product Availability</h3>
+            <ul>
+                <li>Products marked "In Stock" are available for immediate delivery</li>
+                <li>Products marked "Available on Request" require special ordering</li>
+                <li>We reserve the right to substitute items with similar products if necessary</li>
+                <li>Product images are for illustration purposes only</li>
+            </ul>
+            
+            <h3>4. Delivery Service</h3>
+            <ul>
+                <li>Delivery is available within Harare only</li>
+                <li>Delivery fees range from $3-$7 based on order value</li>
+                <li>Free delivery for orders over $50</li>
+                <li>Delivery times are between 9:00 AM and 6:00 PM</li>
+                <li>We are not liable for delays beyond our control</li>
+            </ul>
+            
+            <h3>5. Customer Responsibilities</h3>
+            <ul>
+                <li>Provide accurate delivery information</li>
+                <li>Be available to receive delivery or arrange for someone to receive it</li>
+                <li>Inspect items upon delivery and report issues immediately</li>
+                <li>Ensure payment method is available at time of delivery</li>
+            </ul>
+            
+            <h3>6. Limitation of Liability</h3>
+            <p>Gainer Groceries shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services. Our maximum liability shall not exceed the value of the order in question.</p>
+            
+            <h3>7. Changes to Terms</h3>
+            <p>We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting on our website.</p>
+        </div>
+
+        <!-- Privacy Policy -->
+        <div id="privacy" class="legal-section">
+            <h2>Privacy Policy</h2>
+            <p><strong>Last Updated:</strong> January 2024</p>
+            
+            <h3>1. Information We Collect</h3>
+            <p>We collect the following types of information:</p>
+            <ul>
+                <li><strong>Personal Information:</strong> Name, phone number, delivery address</li>
+                <li><strong>Order Information:</strong> Products purchased, payment method, order history</li>
+                <li><strong>Technical Information:</strong> IP address, browser type, device information</li>
+            </ul>
+            
+            <h3>2. How We Use Your Information</h3>
+            <ul>
+                <li>To process and deliver your orders</li>
+                <li>To communicate with you about your orders</li>
+                <li>To improve our services and customer experience</li>
+                <li>To send promotional messages (with your consent)</li>
+                <li>To comply with legal obligations</li>
+            </ul>
+            
+            <h3>3. Information Sharing</h3>
+            <p>We do not sell, rent, or trade your personal information with third parties. We may share your information only with:</p>
+            <ul>
+                <li>Delivery personnel for order fulfillment</li>
+                <li>Payment processors for transaction processing</li>
+                <li>Legal authorities when required by law</li>
+            </ul>
+            
+            <h3>4. Data Security</h3>
+            <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure.</p>
+            
+            <h3>5. Your Rights</h3>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access your personal information</li>
+                <li>Correct inaccurate information</li>
+                <li>Request deletion of your information</li>
+                <li>Opt out of marketing communications</li>
+            </ul>
+            
+            <h3>6. Cookies</h3>
+            <p>Our website uses cookies to enhance your experience. You can disable cookies in your browser settings, but this may affect website functionality.</p>
+            
+            <h3>7. Contact Information</h3>
+            <p>For privacy-related inquiries, please contact us at:</p>
+            <p>WhatsApp: 0774899928<br>
+            Email: privacy@gainergroceries.co.zw</p>
+        </div>
+
+        <!-- Refund & Returns Policy -->
+        <div id="returns" class="legal-section">
+            <h2>Refund & Returns Policy</h2>
+            <p><strong>Last Updated:</strong> January 2024</p>
+            
+            <h3>1. Damaged or Defective Items</h3>
+            <p>If you receive damaged or defective items, please:</p>
+            <ul>
+                <li>Report the issue within 24 hours of delivery</li>
+                <li>Provide photos of the damaged items</li>
+                <li>Contact us via WhatsApp at 0774899928</li>
+            </ul>
+            <p>We will either replace the item or provide a full refund.</p>
+            
+            <h3>2. Wrong Items Delivered</h3>
+            <p>If we deliver the wrong items:</p>
+            <ul>
+                <li>Report the issue within 24 hours of delivery</li>
+                <li>Keep the incorrectly delivered items</li>
+                <li>We will deliver the correct items at no additional cost</li>
+            </ul>
+            
+            <h3>3. Non-Returnable Items</h3>
+            <p>The following items cannot be returned:</p>
+            <ul>
+                <li>Perishable food items (unless defective)</li>
+                <li>Personal care items that have been opened</li>
+                <li>Items returned after 24 hours</li>
+            </ul>
+            
+            <h3>4. Refund Process</h3>
+            <ul>
+                <li>Refunds are processed within 3-5 business days</li>
+                <li>Refunds will be made using the original payment method</li>
+                <li>Cash refunds will be delivered with your next order</li>
+                <li>EcoCash refunds will be transferred to your EcoCash number</li>
+            </ul>
+            
+            <h3>5. Order Cancellations</h3>
+            <ul>
+                <li>Orders can be cancelled before 7:00 PM on the day of ordering</li>
+                <li>Orders cancelled after 7:00 PM may incur a cancellation fee</li>
+                <li>Orders already prepared for delivery cannot be cancelled</li>
+            </ul>
+            
+            <h3>6. Complaint Resolution</h3>
+            <p>We are committed to resolving customer complaints fairly and promptly. If you have any issues with your order, please contact us immediately so we can make things right.</p>
+        </div>
+
+        <!-- Delivery Policy -->
+        <div id="delivery" class="legal-section">
+            <h2>Delivery Policy</h2>
+            <p><strong>Last Updated:</strong> January 2024</p>
+            
+            <h3>1. Delivery Area</h3>
+            <p>We currently deliver to all areas within Harare, Zimbabwe. If you're unsure about your location, please contact us to confirm delivery availability.</p>
+            
+            <h3>2. Delivery Schedule</h3>
+            <ul>
+                <li>Orders placed by 7:00 PM are delivered the next day</li>
+                <li>Delivery hours: 9:00 AM - 6:00 PM, Monday to Saturday</li>
+                <li>No Sunday deliveries (unless arranged in advance)</li>
+                <li>Public holidays may have modified delivery schedules</li>
+            </ul>
+            
+            <h3>3. Delivery Fees</h3>
+            <ul>
+                <li>Orders $20-$29: $7 delivery fee</li>
+                <li>Orders $30-$49: $5 delivery fee</li>
+                <li>Orders $50+: Free delivery</li>
+                <li>Additional fees may apply for remote areas</li>
+            </ul>
+            
+            <h3>4. Delivery Process</h3>
+            <ul>
+                <li>You will receive a WhatsApp message when your order is out for delivery</li>
+                <li>Our delivery personnel will call upon arrival</li>
+                <li>Please ensure someone is available to receive the order</li>
+                <li>Inspect items before signing for delivery</li>
+            </ul>
+            
+            <h3>5. Failed Deliveries</h3>
+            <p>If delivery fails due to:</p>
+            <ul>
+                <li><strong>No one available:</strong> $3 redelivery fee</li>
+                <li><strong>Wrong address:</strong> $3 redelivery fee</li>
+                <li><strong>Customer cancellation:</strong> Full delivery fee charged</li>
+            </ul>
+            
+            <h3>6. Delivery Time Estimates</h3>
+            <p>While we strive to deliver within the stated timeframe, delivery times may vary due to traffic, weather, or order volume. We will notify you of any significant delays.</p>
+            
+            <h3>7. Special Delivery Instructions</h3>
+            <p>If you have special delivery instructions (e.g., leave at gate, call before arrival), please include them in the order notes. We will try to accommodate reasonable requests.</p>
+            
+            <h3>8. COVID-19 Safety Measures</h3>
+            <ul>
+                <li>Contactless delivery available upon request</li>
+                <li>Delivery personnel wear masks and practice hand hygiene</li>
+                <li>Please maintain social distancing during delivery</li>
+            </ul>
+        </div>
+
+        <div class="back-to-home">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.legal-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            document.querySelector(`[href="#${sectionId}"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

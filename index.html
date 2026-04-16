@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gainer Groceries - Your Online Supermarket</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Enhanced Hero Section */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .hero-bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.7);
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.85) 0%, 
+                rgba(16, 185, 129, 0.7) 50%,
+                rgba(0, 0, 0, 0.9) 100%);
+            z-index: 2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            animation: bounce 2s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            text-shadow: 0 6px 40px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.8);
+            line-height: 1.1;
+            animation: slideInLeft 1s ease-out;
+            filter: none;
+        }
+        
+        .hero-title .highlight {
+            color: #10b981;
+            text-shadow: 0 6px 40px rgba(0,0,0,1), 0 0 20px rgba(16, 185, 129, 0.8);
+            position: relative;
+            filter: none;
+        }
+        
+        .hero-description {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: #ffffff;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            text-shadow: 0 4px 20px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,0.8);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideInRight 1s ease-out 0.2s both;
+            font-weight: 500;
+            filter: none;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .hero-features {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #10b981;
+        }
+        
+        .feature-text {
+            text-align: left;
+        }
+        
+        .feature-text strong {
+            display: block;
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+        
+        .feature-text small {
+            color: #ffffff;
+            font-size: 0.8rem;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.8);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 1.3rem 3.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 18px 45px rgba(16, 185, 129, 0.5);
+        }
+        
+        .btn-primary:hover .btn-shine {
+            left: 100%;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            color: white;
+            padding: 1.3rem 3.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .scroll-arrow {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .hero-scroll-indicator span {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Hero Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* Responsive Hero */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-buttons {
+                gap: 1rem;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .hero-features {
+                gap: 1rem;
+                flex-direction: column;
+            }
+            
+            .feature-item {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .feature-text {
+                text-align: center;
+            }
+        }
+        
+        /* Grocery Slideshow Styles */
+        .grocery-slideshow {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .grocery-slideshow .container {
+            text-align: center;
+        }
+        
+        .grocery-slideshow h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+        
+        .grocery-slideshow p {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .slideshow-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .slideshow-wrapper {
+            position: relative;
+            height: 600px;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
+            transform: translateX(100%);
+        }
+        
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: left;
+        }
+        
+        .slide-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #10b981;
+        }
+        
+        .slide-content p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            margin: 0;
+            max-width: 500px;
+        }
+        
+        .slideshow-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            font-size: 1.2rem;
+            color: #10b981;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .slideshow-nav:hover {
+            background: #10b981;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .slideshow-nav.prev {
+            left: 20px;
+        }
+        
+        .slideshow-nav.next {
+            right: 20px;
+        }
+        
+        .slide-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.8);
+        }
+        
+        .indicator.active {
+            background: #10b981;
+            width: 30px;
+            border-radius: 6px;
+        }
+        
+        .indicator:hover {
+            background: rgba(16, 185, 129, 0.7);
+        }
+        
+        /* Responsive Slideshow */
+        @media (max-width: 768px) {
+            .grocery-slideshow {
+                padding: 3rem 0;
+            }
+            
+            .grocery-slideshow h2 {
+                font-size: 2rem;
+            }
+            
+            .slideshow-wrapper {
+                height: 400px;
+            }
+            
+            .slideshow-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .slideshow-nav.prev {
+                left: 10px;
+            }
+            
+            .slideshow-nav.next {
+                right: 10px;
+            }
+            
+            .slide-content {
+                padding: 2rem 1rem 1rem;
+            }
+            
+            .slide-content h3 {
+                font-size: 1.5rem;
+            }
+            
+            .slide-content p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Enhanced Category Cards */
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2c7a2c, #10b981, #059669);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #2c7a2c;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        
+        .category-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+        
+        .category-card:hover h3 {
+            color: #10b981;
+        }
+        
+        .category-card p {
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        /* Enhanced Product Cards */
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #94a3b8;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+        
+        .product-card:hover .product-image::before {
+            opacity: 1;
+            top: -100%;
+            left: -100%;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c7a2c;
+            margin-bottom: 1rem;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            background: linear-gradient(45deg, #2c7a2c, #10b981);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .add-to-cart:hover {
+            background: linear-gradient(45deg, #1a5c1a, #059669);
+            transform: scale(1.02);
+        }
+        
+        /* Enhanced Header */
+        .header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .header.scrolled {
+            background: rgba(255,255,255,0.98);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(44, 122, 44, 0.3);
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .logo:hover .logo-img {
+            transform: rotate(5deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(44, 122, 44, 0.4);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 0;
+            line-height: 1.2;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #4a5568;
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .logo:hover .logo-text h1 {
+            color: #10b981;
+        }
+        
+        .logo:hover .logo-text p {
+            color: #2c7a2c;
+        }
+        
+        /* Enhanced Steps */
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2c7a2c, #10b981);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2c7a2c, #10b981);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover .step-number {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(44, 122, 44, 0.3);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            }
+            to {
+                text-shadow: 0 4px 30px rgba(0,0,0,0.4), 0 0 40px rgba(44, 122, 44, 0.3);
+            }
+        }
+        
+        /* Enhanced Footer */
+        .footer {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2c7a2c, #10b981, #059669);
+        }
+        
+        /* Responsive Enhancements */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="logo.png" alt="Gainer Groceries" class="logo-img">
+                    <div class="logo-text">
+                        <h1>Gainer Groceries</h1>
+                        <p>Your Online Supermarket</p>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#delivery">Delivery</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="admin-btn" onclick="goToAdmin()">
+                        <i class="fas fa-lock"></i> Admin
+                    </button>
+                    <button class="whatsapp-btn" onclick="quickWhatsAppOrder()" title="Order via WhatsApp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                    <button class="cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Fresh Groceries, Delivered to Your Door</h1>
+                <p>Your trusted online supermarket for fresh produce, pantry essentials, snacks, beverages, toiletries and more. Order by 7PM, delivered tomorrow!</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToShop()">
+                        <i class="fas fa-shopping-bag"></i> Shop Now
+                    </button>
+                    <button class="btn-secondary" onclick="quickWhatsAppOrder()" title="Order via WhatsApp with auto-generated form">
+                        <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                    </button>
+                </div>
+                <div class="scroll-indicator" onclick="scrollToExplore()">
+                    <div class="scroll-text">
+                        <span>Scroll to Explore</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="scroll-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grocery Slideshow -->
+    <section class="grocery-slideshow">
+        <div class="container">
+            <h2>Fresh Groceries Gallery</h2>
+            <p>Discover our wide selection of fresh produce and quality products</p>
+            
+            <div class="slideshow-container">
+                <div class="slideshow-wrapper" id="slideshow-wrapper">
+                    <!-- Slides will be loaded dynamically from admin dashboard -->
+                </div>
+                <button class="slideshow-nav prev" onclick="changeSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slideshow-nav next" onclick="changeSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="slide-indicators" id="slide-indicators">
+                    <!-- Indicators will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="featured-categories">
+        <div class="container">
+            <h2>Shop by Category</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterByCategory('pantry')">
+                    <div class="category-icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <h3>Pantry</h3>
+                    <p>Rice, Pasta, Flour, Sugar, Oil & more</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('breakfast')">
+                    <div class="category-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <h3>Breakfast & Cereals</h3>
+                    <p>Oats, Cornflakes, Tea, Coffee</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('beverages')">
+                    <div class="category-icon">
+                        <i class="fas fa-glass-water"></i>
+                    </div>
+                    <h3>Beverages</h3>
+                    <p>Juices, Soft Drinks, Water, Tea</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('snacks')">
+                    <div class="category-icon">
+                        <i class="fas fa-cookie"></i>
+                    </div>
+                    <h3>Snacks & Biscuits</h3>
+                    <p>Chips, Biscuits, Chocolates</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('toiletries')">
+                    <div class="category-icon">
+                        <i class="fas fa-soap"></i>
+                    </div>
+                    <h3>Toiletries & Personal Care</h3>
+                    <p>Soap, Toothpaste, Lotion & more</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('household')">
+                    <div class="category-icon">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <h3>Cleaning & Household</h3>
+                    <p>Detergents, Cleaners, Toilet Paper</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('baby')">
+                    <div class="category-icon">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h3>Baby Products</h3>
+                    <p>Baby Food, Diapers, Wipes</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('frozen')">
+                    <div class="category-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h3>Frozen Foods</h3>
+                    <p>Frozen Foods & Meals</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('health')">
+                    <div class="category-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Health & Wellness</h3>
+                    <p>Vitamins, Supplements, Medical</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('pet')">
+                    <div class="category-icon">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                    <h3>Pet Supplies</h3>
+                    <p>Pet Food, Toys, Accessories</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('bakery')">
+                    <div class="category-icon">
+                        <i class="fas fa-bread-loaf"></i>
+                    </div>
+                    <h3>Fresh Bakery</h3>
+                    <p>Bread, Cakes, Pastries</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('dairy')">
+                    <div class="category-icon">
+                        <i class="fas fa-cheese"></i>
+                    </div>
+                    <h3>Dairy & Eggs</h3>
+                    <p>Milk, Cheese, Yogurt, Eggs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="shop">
+        <div class="container">
+            <h2>Our Products</h2>
+            
+            <!-- Search and Filter -->
+            <div class="shop-controls">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search products..." onkeyup="searchProducts()">
+                    <i class="fas fa-search"></i>
+                </div>
+                <select id="category-filter" onchange="filterByCategory(this.value)">
+                    <option value="">All Categories</option>
+                    <option value="pantry">Pantry</option>
+                    <option value="breakfast">Breakfast & Cereals</option>
+                    <option value="beverages">Beverages</option>
+                    <option value="snacks">Snacks & Biscuits</option>
+                    <option value="toiletries">Toiletries & Personal Care</option>
+                    <option value="household">Cleaning & Household</option>
+                    <option value="baby">Baby Products</option>
+                    <option value="frozen">Frozen Foods</option>
+                    <option value="health">Health & Wellness</option>
+                    <option value="pet">Pet Supplies</option>
+                    <option value="office">Office Supplies</option>
+                    <option value="automotive">Automotive</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="gardening">Gardening</option>
+                    <option value="bakery">Fresh Bakery</option>
+                    <option value="dairy">Dairy & Eggs</option>
+                    <option value="meat">Meat & Poultry</option>
+                    <option value="seafood">Seafood</option>
+                    <option value="produce">Fresh Produce</option>
+                </select>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="products-grid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Browse Products</h3>
+                    <p>Shop our wide selection of groceries and household items</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Add to Cart</h3>
+                    <p>Select your items and add them to your shopping cart</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Checkout or WhatsApp</h3>
+                    <p>Complete your order online or send it via WhatsApp</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Receive your order the next day (orders by 7PM)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Info -->
+    <section id="delivery" class="delivery-info">
+        <div class="container">
+            <h2>Delivery Information</h2>
+            
+            <!-- Delivery Car Showcase -->
+            <div class="delivery-showcase">
+                <div class="delivery-visual">
+                    <img src="delivery-car.png" alt="Gainer Groceries Delivery Car" class="delivery-car">
+                    <div class="delivery-badge">
+                        <i class="fas fa-truck"></i>
+                        <span>Fast Delivery</span>
+                    </div>
+                </div>
+                <div class="delivery-features">
+                    <h3>Your Groceries, Delivered with Care</h3>
+                    <p>Our dedicated delivery team ensures your fresh groceries arrive safely and on time, every time.</p>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>24-Hour Delivery</h4>
+                                <p>Order by 7PM, get it tomorrow</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Fresh Guarantee</h4>
+                                <p>Fresh products or your money back</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Harare Coverage</h4>
+                                <p>CBD & 15km radius delivery</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="delivery-details">
+                <div class="delivery-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Delivery Area</h3>
+                    <p>Harare CBD<br>15km radius coverage</p>
+                </div>
+                <div class="delivery-card">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>Delivery Fees</h3>
+                    <p>$4 USD per delivery<br>Free for orders $80 and above</p>
+                </div>
+                <div class="delivery-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Order Cut-off</h3>
+                    <p>Orders must be placed by 7PM for next-day delivery</p>
+                </div>
+                <div class="delivery-card">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>Minimum Order</h3>
+                    <p>$20 minimum order value</p>
+                </div>
+            </div>
+            <div class="payment-methods">
+                <h3>Payment Methods</h3>
+                <div class="payment-options">
+                    <div class="payment-option">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Cash on Delivery (USD or ZWL)</span>
+                    </div>
+                    <div class="payment-option">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>EcoCash</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p>+263 713 749 230</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <p>Order directly via WhatsApp</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>gainergroceries@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form onsubmit="handleContactForm(event)">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" rows="5" required placeholder="Tell us how we can help you..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gainer Groceries</h3>
+                    <p>Your Online Supermarket in Harare, Zimbabwe</p>
+                    <div class="contact-info">
+                        <p><i class="fab fa-whatsapp"></i> +263 71 374 9230</p>
+                        <p><i class="fas fa-money-bill-wave"></i> EcoCash: +263 77 489 9928</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Harare, Zimbabwe</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#delivery">Delivery Info</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="returns.html">Refund & Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#" onclick="filterByCategory('pantry')">Pantry</a></li>
+                        <li><a href="#" onclick="filterByCategory('breakfast')">Breakfast</a></li>
+                        <li><a href="#" onclick="filterByCategory('snacks')">Snacks</a></li>
+                        <li><a href="#" onclick="filterByCategory('toiletries')">Toiletries</a></li>
+                        <li><a href="#" onclick="filterByCategory('household')">Household</a></li>
+                        <li><a href="#" onclick="filterByCategory('baby')">Baby Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Admin</h4>
+                    <ul>
+                        <li><a href="admin-login.html">Admin Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Gainer Groceries. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: $<span id="cart-total">0.00</span></span>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="cart-actions" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px;">
+                <button class="btn-sm" onclick="saveCartForLater()" title="Save for later">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <button class="btn-sm" onclick="clearCart()" title="Clear cart" style="background: #fee2e2; color: #dc2626;">
+                    <i class="fas fa-trash"></i> Clear
+                </button>
+            </div>
+            
+            <!-- Staff Purchase -->
+            <div class="staff-purchase-section" style="background: #fef3c7; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+                <label style="display: flex; align-items: center; cursor: pointer; margin-bottom: 8px;">
+                    <input type="checkbox" id="cart-staff-toggle" onchange="toggleCartStaffSection()" style="margin-right: 8px;">
+                    <span style="font-size: 14px; font-weight: 600;"><i class="fas fa-user-tie"></i> Staff Purchase</span>
+                </label>
+                <div id="cart-staff-code-section" style="display: none;">
+                    <input type="text" id="cart-staff-code" placeholder="Staff code (MGR001)" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 8px; font-size: 14px;">
+                    <button class="btn-sm" onclick="processStaffCartPurchase()" style="width: 100%; background: #d97706; color: white;">
+                        <i class="fas fa-percent"></i> Apply Staff Discount
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Promo Code -->
+            <div class="promo-section" style="margin-bottom: 15px;">
+                <div style="display: flex; gap: 5px;">
+                    <input type="text" id="cart-promo-code" placeholder="Promo code" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                    <button class="btn-sm" onclick="applyCartPromoCode()" style="white-space: nowrap;">
+                        <i class="fas fa-tag"></i> Apply
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Main Checkout Actions -->
+            <button class="btn-primary" onclick="goToCheckoutPage()" style="width: 100%; margin-bottom: 8px;">
+                <i class="fas fa-credit-card"></i> Checkout
+            </button>
+            <button class="btn-secondary" onclick="orderViaWhatsApp()" style="width: 100%; margin-bottom: 8px; background: #25d366; color: white;">
+                <i class="fab fa-whatsapp"></i> Order via WhatsApp
+            </button>
+            <button class="btn-secondary" onclick="quickBuyAll()" style="width: 100%; background: #dbeafe; color: #1e40af;">
+                <i class="fas fa-bolt"></i> Quick Buy All
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Checkout</h3>
+                <button class="close-modal" onclick="closeCheckout()">&times;</button>
+            </div>
+            <form id="checkout-form" onsubmit="processCheckout(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <textarea id="address" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="payment">Payment Method</label>
+                    <select id="payment" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="cash-usd">Cash (USD)</option>
+                        <option value="cash-zwl">Cash (ZWL)</option>
+                        <option value="ecocash">EcoCash</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Order Notes (Optional)</label>
+                    <textarea id="notes" rows="2"></textarea>
+                </div>
+                <div class="order-summary">
+                    <h4>Order Summary</h4>
+                    <div id="checkout-items"></div>
+                    <div class="summary-line">
+                        <span>Subtotal:</span>
+                        <span>$<span id="subtotal">0.00</span></span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Delivery:</span>
+                        <span>$<span id="delivery-fee">0.00</span></span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total:</span>
+                        <span>$<span id="final-total">0.00</span></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <h3>Order Placed Successfully!</h3>
+                <p>Thank you for your order. We'll deliver it tomorrow!</p>
+                <button class="btn-primary" onclick="closeSuccess()">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Admin Integration - Load slideshow from admin dashboard
+        let currentSlide = 0;
+        let slides = [];
+        let slideInterval;
+        
+        // Load slides from admin dashboard
+        async function loadAdminSlides() {
+            try {
+                const adminSlides = await db.getSlides();
+                if (adminSlides && adminSlides.length > 0) {
+                    slides = adminSlides;
+                } else {
+                    // Default slides if admin hasn't set any
+                    slides = [
+                        { id: 1, title: 'Fresh Produce', caption: 'Get fresh vegetables daily', link: '#shop', image: null },
+                        { id: 2, title: 'Special Offers', caption: 'Up to 50% off selected items', link: '#shop', image: null },
+                        { id: 3, title: 'Fast Delivery', caption: 'Free delivery on orders over $50', link: '#delivery', image: null }
+                    ];
+                }
+                renderSlideshow();
+            } catch (e) {
+                console.error('Error loading slides from database:', e);
+                // Fallback to localStorage
+                const adminSlides = localStorage.getItem('adminSlides');
+                if (adminSlides) {
+                    slides = JSON.parse(adminSlides);
+                } else {
+                    slides = [
+                        { id: 1, title: 'Fresh Produce', caption: 'Get fresh vegetables daily', link: '#shop', image: null },
+                        { id: 2, title: 'Special Offers', caption: 'Up to 50% off selected items', link: '#shop', image: null },
+                        { id: 3, title: 'Fast Delivery', caption: 'Free delivery on orders over $50', link: '#delivery', image: null }
+                    ];
+                }
+                renderSlideshow();
+            }
+        }
+        
+        // Listen for admin updates
+        function listenForAdminUpdates() {
+            // Check for localStorage updates
+            let lastUpdate = localStorage.getItem('adminSlidesUpdated') || '0';
+            
+            setInterval(() => {
+                const currentUpdate = localStorage.getItem('adminSlidesUpdated') || '0';
+                if (currentUpdate !== lastUpdate) {
+                    console.log('Admin slides updated, refreshing slideshow...');
+                    loadAdminSlides();
+                    lastUpdate = currentUpdate;
+                }
+            }, 1000); // Check every second
+            
+            // Listen for postMessage events
+            window.addEventListener('message', function(event) {
+                if (event.data && event.data.type === 'slideshowUpdated') {
+                    console.log('Received slideshow update notification:', event.data);
+                    loadAdminSlides();
+                }
+            });
+            
+            // Listen for storage events (for cross-tab updates)
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'adminSlides' || event.key === 'adminSlidesUpdated') {
+                    console.log('Storage event detected, refreshing slideshow...');
+                    loadAdminSlides();
+                }
+            });
+        }
+        
+        // Render slideshow dynamically
+        function renderSlideshow() {
+            const wrapper = document.getElementById('slideshow-wrapper');
+            const indicators = document.getElementById('slide-indicators');
+            
+            if (!wrapper || !indicators) return;
+            
+            // Clear existing content
+            wrapper.innerHTML = '';
+            indicators.innerHTML = '';
+            
+            // Create slides
+            slides.forEach((slide, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
+                slideDiv.innerHTML = `
+                    <img src="${slide.image || `https://picsum.photos/seed/slide${slide.id}/1200/600.jpg`}" 
+                         alt="${slide.title}" 
+                         onerror="this.src='https://picsum.photos/seed/grocery${slide.id}/1200/600.jpg'">
+                    <div class="slide-content">
+                        <h3>${slide.title}</h3>
+                        <p>${slide.caption}</p>
+                    </div>
+                `;
+                
+                // Add click handler for link
+                slideDiv.addEventListener('click', () => {
+                    if (slide.link) {
+                        if (slide.link.startsWith('#')) {
+                            // Smooth scroll to section
+                            const element = document.querySelector(slide.link);
+                            if (element) {
+                                element.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        } else {
+                            // Open external link
+                            window.open(slide.link, '_blank');
+                        }
+                    }
+                });
+                
+                wrapper.appendChild(slideDiv);
+                
+                // Create indicator
+                const indicator = document.createElement('span');
+                indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+                indicator.onclick = () => goToSlide(index);
+                indicators.appendChild(indicator);
+            });
+            
+            // Start autoplay if slides exist
+            if (slides.length > 0) {
+                autoPlay();
+                setupSlideshowHover();
+            }
+        }
+        
+        function showSlide(n) {
+            const slideElements = document.querySelectorAll('.slide');
+            const indicatorElements = document.querySelectorAll('.indicator');
+            
+            if (!slideElements.length || !indicatorElements.length) return;
+            
+            // Calculate the actual slide index with proper wrap-around
+            let slideIndex = n;
+            
+            // Wrap to beginning if at end
+            if (slideIndex >= slides.length) {
+                slideIndex = 0;
+            }
+            // Wrap to end if at beginning
+            else if (slideIndex < 0) {
+                slideIndex = slides.length - 1;
+            }
+            
+            currentSlide = slideIndex;
+            
+            // Update slides - remove all animation classes first
+            slideElements.forEach((slide) => {
+                slide.classList.remove('active', 'prev');
+            });
+            
+            // Add active class to current slide
+            slideElements[currentSlide].classList.add('active');
+            
+            // Add prev class to all slides before current (for animation direction)
+            slideElements.forEach((slide, index) => {
+                if (index < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+            
+            // Update indicators
+            indicatorElements.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        function changeSlide(n) {
+            showSlide(currentSlide + n);
+            resetAutoPlay();
+        }
+        
+        function goToSlide(n) {
+            showSlide(n);
+            resetAutoPlay();
+        }
+        
+        function autoPlay() {
+            if (slides.length <= 1) return;
+            slideInterval = setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 4000);
+        }
+        
+        function resetAutoPlay() {
+            clearInterval(slideInterval);
+            autoPlay();
+        }
+        
+        function setupSlideshowHover() {
+            const slideshowContainer = document.querySelector('.slideshow-container');
+            if (slideshowContainer) {
+                slideshowContainer.addEventListener('mouseenter', () => {
+                    clearInterval(slideInterval);
+                });
+                slideshowContainer.addEventListener('mouseleave', autoPlay);
+            }
+        }
+        
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load admin slides first
+            loadAdminSlides();
+            
+            // Start listening for admin updates
+            listenForAdminUpdates();
+            
+            // Load products from admin dashboard
+            if (typeof loadProductsFromStorage === 'function') {
+                loadProductsFromStorage();
+            }
+            
+            // Update cart count
+            if (typeof updateCartCount === 'function') {
+                updateCartCount();
+            }
+        });
+        
+        // Admin button function
+        function goToAdmin() {
+            window.location.href = 'admin-login.html';
+        }
+        
+        // Load settings from admin (store name, contact info, etc.)
+        function loadAdminSettings() {
+            const settings = JSON.parse(localStorage.getItem('adminSettings') || '{}');
+            
+            // Update store name if set
+            if (settings.storeName) {
+                const logoText = document.querySelector('.logo-text h1');
+                if (logoText) {
+                    logoText.textContent = settings.storeName;
+                }
+            }
+            
+            // Update WhatsApp number if set
+            if (settings.whatsapp) {
+                window.openWhatsApp = function() {
+                    window.open(`https://wa.me/${settings.whatsapp.replace(/\D/g, '')}`, '_blank');
+                };
+            }
+        }
+        
+        // Load settings on page load
+        document.addEventListener('DOMContentLoaded', loadAdminSettings);
+        
+        // Also initialize on window load as backup
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showSlide(1);
+                autoPlay();
+            }, 200);
+        });
+        
+        // Scroll to explore function
+        function scrollToExplore() {
+            const nextSection = document.querySelector('.grocery-slideshow');
+            if (nextSection) {
+                nextSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+        
+        // Existing functions
+        function scrollToShop() {
+            const shopSection = document.querySelector('#shop');
+            if (shopSection) {
+                shopSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+        
+        function openWhatsApp() {
+            const message = encodeURIComponent('Hi! I would like to place an order with Gainer Groceries.');
+            window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+        }
+        
+        function goToAdmin() {
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+</body>
+</html>

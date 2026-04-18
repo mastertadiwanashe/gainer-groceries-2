@@ -5083,7 +5083,7 @@ ${order.items?.map(item => `- ${item.name} x${item.quantity}`).join('\n') || 'No
         }
 
         // Create new slide
-        function createSlide(imageData, fileName) {
+        async function createSlide(imageData, fileName) {
             const newSlide = {
                 id: Date.now(),
                 title: 'Slide ' + (slides.length + 1),
@@ -5093,18 +5093,26 @@ ${order.items?.map(item => `- ${item.name} x${item.quantity}`).join('\n') || 'No
             };
 
             slides.push(newSlide);
-            saveSlides();
+            await saveSlides();
             showSlides();
             showSuccess('Slide added successfully!');
         }
 
-        // Save to localStorage
-        function saveSlides() {
-            localStorage.setItem('adminSlides', JSON.stringify(slides));
+        // Save to IndexedDB
+        async function saveSlides() {
+            try {
+                for (const slide of slides) {
+                    await db.saveSlide(slide);
+                }
+            } catch (e) {
+                console.error('Error saving slides:', e);
+                // Fallback to localStorage
+                localStorage.setItem('adminSlides', JSON.stringify(slides));
+            }
         }
 
         // Edit slide
-        function editSlide(id) {
+        async function editSlide(id) {
             const slide = slides.find(s => s.id === id);
             if (!slide) return;
 
@@ -5117,21 +5125,9 @@ ${order.items?.map(item => `- ${item.name} x${item.quantity}`).join('\n') || 'No
             slide.title = newTitle || slide.title;
             slide.caption = newCaption || slide.caption;
 
-            saveSlides();
-            showSlides();
-            showSuccess('Slide updated!');
-        }
-
-        // Delete slide
-        function deleteSlide(id) {
-            if (!confirm('Delete this slide?')) return;
-
-            slides = slides.filter(s => s.id !== id);
-            slides.forEach((s, i) => s.order = i + 1);
-
-            saveSlides();
-            showSlides();
-            showSuccess('Slide deleted!');
+            await saveSlides();
+            renderSlidesList();
+            showSuccess('Slide updated successfully!');
         }
 
         // Preview (simplified)
@@ -5371,30 +5367,38 @@ ${order.items?.map(item => `- ${item.name} x${item.quantity}`).join('\n') || 'No
             showSuccess('Slide updated successfully!');
         }
         
-        function deleteSlide(slideId) {
+        async function deleteSlide(slideId) {
             if (!confirm('Are you sure you want to delete this slide?')) return;
-            
+
             slides = slides.filter(s => s.id !== slideId);
-            
+
             // Reorder remaining slides
             slides.forEach((slide, index) => {
                 slide.order = index + 1;
             });
-            
-            // Automatically save to localStorage
-            saveSlides();
-            
+
+            // Save to IndexedDB
+            await saveSlides();
+
             // Trigger store update event
             notifyStoreUpdate();
-            
+
             renderSlidesList();
             initializeSortable();
             showSuccess('Slide deleted successfully!');
         }
         
-        function saveSlides() {
-            localStorage.setItem('adminSlides', JSON.stringify(slides));
-            console.log('Saved slides to storage:', slides.length, 'slides');
+        async function saveSlides() {
+            try {
+                for (const slide of slides) {
+                    await db.saveSlide(slide);
+                }
+                console.log('Saved slides to database:', slides.length, 'slides');
+            } catch (e) {
+                console.error('Error saving slides:', e);
+                // Fallback to localStorage
+                localStorage.setItem('adminSlides', JSON.stringify(slides));
+            }
         }
         
         // Notify store that slides have been updated

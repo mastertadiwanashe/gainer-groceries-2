@@ -908,40 +908,72 @@ html {
         max-width: 300px;
         gap: 0.6rem;
     }
-    
+
     .logo-img {
         width: 150px;
         height: 150px;
         font-size: 3rem;
     }
-    
+
     .logo h1 {
         font-size: 1.2rem;
     }
-    
-    .logo p {
-        font-size: 0.65rem;
+}
+
+/* Portrait mode improvements */
+@media (orientation: portrait) and (max-width: 768px) {
+    * {
+        box-sizing: border-box;
     }
-    
-    .header-actions {
-        min-width: 160px;
-        gap: 0.3rem;
+
+    body {
+        overflow-x: hidden;
+        width: 100vw;
+        max-width: 100vw;
     }
-    
-    .admin-btn, .whatsapp-btn, .cart-btn {
-        padding: 0.35rem 0.5rem;
-        font-size: 0.6rem;
+
+    .hero {
+        min-height: 100vh;
+        padding: 1rem;
     }
-    
-    .nav a {
-        font-size: 0.7rem;
-        padding: 0.35rem 0.5rem;
+
+    .hero-content {
+        padding: 2rem 1rem;
+        margin: 0;
+        max-width: 100%;
     }
-    
-    #cart-count {
-        width: 10px;
-        height: 10px;
-        font-size: 0.45rem;
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .product-card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .header-content {
+        flex-direction: column;
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-item {
+        width: 100%;
+        text-align: center;
+        padding: 0.8rem;
     }
 }
 

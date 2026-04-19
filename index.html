@@ -1448,6 +1448,7 @@
     </div>
 
     <script src="database.js"></script>
+    <script src="api-client.js"></script>
     <script src="script.js"></script>
     <script>
         // Admin Integration - Load slideshow from admin dashboard
@@ -1455,14 +1456,25 @@
         let slides = [];
         let slideInterval;
         
-        // Load slides from admin dashboard
+        // Load slides from PHP backend API
         async function loadAdminSlides() {
             try {
+                // Try PHP API first
+                if (typeof SlideshowAPI !== 'undefined') {
+                    const apiSlides = await SlideshowAPI.getAll();
+                    if (apiSlides && apiSlides.length > 0) {
+                        slides = apiSlides;
+                        renderSlideshow();
+                        return;
+                    }
+                }
+                
+                // Fallback to IndexedDB for local testing
                 const adminSlides = await db.getSlides();
                 if (adminSlides && adminSlides.length > 0) {
                     slides = adminSlides;
                 } else {
-                    // Default slides if admin hasn't set any
+                    // Default slides if none set
                     slides = [
                         { id: 1, title: 'Fresh Produce', caption: 'Get fresh vegetables daily', link: '#shop', image: null },
                         { id: 2, title: 'Special Offers', caption: 'Up to 50% off selected items', link: '#shop', image: null },
@@ -1471,18 +1483,13 @@
                 }
                 renderSlideshow();
             } catch (e) {
-                console.error('Error loading slides from database:', e);
-                // Fallback to localStorage
-                const adminSlides = localStorage.getItem('adminSlides');
-                if (adminSlides) {
-                    slides = JSON.parse(adminSlides);
-                } else {
-                    slides = [
-                        { id: 1, title: 'Fresh Produce', caption: 'Get fresh vegetables daily', link: '#shop', image: null },
-                        { id: 2, title: 'Special Offers', caption: 'Up to 50% off selected items', link: '#shop', image: null },
-                        { id: 3, title: 'Fast Delivery', caption: 'Free delivery on orders over $50', link: '#delivery', image: null }
-                    ];
-                }
+                console.error('Error loading slides:', e);
+                // Default slides on error
+                slides = [
+                    { id: 1, title: 'Fresh Produce', caption: 'Get fresh vegetables daily', link: '#shop', image: null },
+                    { id: 2, title: 'Special Offers', caption: 'Up to 50% off selected items', link: '#shop', image: null },
+                    { id: 3, title: 'Fast Delivery', caption: 'Free delivery on orders over $50', link: '#delivery', image: null }
+                ];
                 renderSlideshow();
             }
         }

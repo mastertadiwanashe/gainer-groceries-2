@@ -154,7 +154,28 @@ const OrdersAPI = {
     }
 };
 
+// Analytics API
+const AnalyticsAPI = {
+    async getSummary() {
+        try {
+            const response = await fetch(API_BASE + 'analytics.php');
+            return await response.json();
+        } catch (e) {
+            console.error('Error fetching analytics:', e);
+            return {
+                totalOrders: 0,
+                totalSales: 0,
+                dailyRevenue: 0,
+                weeklyRevenue: 0,
+                monthlyRevenue: 0,
+                lowStock: [],
+                recentOrders: []
+            };
+        }
+    }
+};
+
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { ProductsAPI, SlideshowAPI, OrdersAPI };
+    module.exports = { ProductsAPI, SlideshowAPI, OrdersAPI, AnalyticsAPI };
 }

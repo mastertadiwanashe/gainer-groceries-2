@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="database.js"></script>
+    <script src="api-client.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <style>
         .admin-container {
@@ -5540,16 +5541,41 @@ ${order.items?.map(item => `- ${item.name} x${item.quantity}`).join('\n') || 'No
             saveSlideOrder();
         }
         
-        // Sales Analytics Functions
-        function loadAnalytics() {
+        // Sales Analytics Functions - Using PHP API
+        async function loadAnalytics() {
+            try {
+                // Try PHP API first
+                if (typeof AnalyticsAPI !== 'undefined') {
+                    const analytics = await AnalyticsAPI.getSummary();
+                    
+                    // Update revenue cards
+                    const dailyCard = document.querySelector('.revenue-card:nth-child(1) .revenue-amount');
+                    const weeklyCard = document.querySelector('.revenue-card:nth-child(2) .revenue-amount');
+                    const monthlyCard = document.querySelector('.revenue-card:nth-child(3) .revenue-amount');
+                    
+                    if (dailyCard) dailyCard.textContent = `$${(analytics.dailyRevenue || 0).toFixed(2)}`;
+                    if (weeklyCard) weeklyCard.textContent = `$${(analytics.weeklyRevenue || 0).toFixed(2)}`;
+                    if (monthlyCard) monthlyCard.textContent = `$${(analytics.monthlyRevenue || 0).toFixed(2)}`;
+                    
+                    // Load low stock from API
+                    loadLowStockAlertsFromAPI(analytics.lowStock || []);
+                } else {
+                    // Fallback to local calculation
+                    loadAnalyticsFromLocal();
+                }
+            } catch (e) {
+                console.error('Error loading analytics:', e);
+                loadAnalyticsFromLocal();
+            }
+            
+            // Load best sellers (placeholder)
+            loadBestSellers();
+        }
+        
+        // Fallback analytics from local data
+        function loadAnalyticsFromLocal() {
             const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-            const products = JSON.parse(localStorage.getItem('adminProducts') || '[]');
             
-            // Calculate revenue stats
-            const totalSales = orders.reduce((sum, order) => sum + (order.total || 0), 0);
-            const totalOrders = orders.length;
-            
-            // Calculate daily, weekly, monthly revenue
             const now = new Date();
             const today = now.toDateString();
             const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -5567,7 +5593,6 @@ ${order.items?.map(item => `- ${item.name} x${item.quantity}`).join('\n') || 'No
                 .filter(order => new Date(order.date) >= monthAgo)
                 .reduce((sum, order) => sum + (order.total || 0), 0);
             
-            // Update revenue cards
             const dailyCard = document.querySelector('.revenue-card:nth-child(1) .revenue-amount');
             const weeklyCard = document.querySelector('.revenue-card:nth-child(2) .revenue-amount');
             const monthlyCard = document.querySelector('.revenue-card:nth-child(3) .revenue-amount');
@@ -5576,20 +5601,10 @@ ${order.items?.map(item => `- ${item.name} x${item.quantity}`).join('\n') || 'No
             if (weeklyCard) weeklyCard.textContent = `$${weeklyRevenue.toFixed(2)}`;
             if (monthlyCard) monthlyCard.textContent = `$${monthlyRevenue.toFixed(2)}`;
             
-            // Load low stock alerts
             loadLowStockAlerts();
-            
-            // Load best sellers (placeholder)
-            loadBestSellers();
         }
         
-        function loadLowStockAlerts() {
-            const products = JSON.parse(localStorage.getItem('adminProducts') || '[]');
-            const lowStockProducts = products.filter(product => {
-                const stockLevel = parseInt(product.stock) || 0;
-                return stockLevel < 10; // Low stock threshold
-            });
-            
+        function loadLowStockAlertsFromAPI(lowStockProducts) {
             const alertsContainer = document.getElementById('low-stock-alerts');
             if (!alertsContainer) return;
             
@@ -5606,6 +5621,16 @@ ${order.items?.map(item => `- ${item.name} x${item.quantity}`).join('\n') || 'No
                     </div>
                 `).join('');
             }
+        }
+        
+        function loadLowStockAlerts() {
+            const products = JSON.parse(localStorage.getItem('adminProducts') || '[]');
+            const lowStockProducts = products.filter(product => {
+                const stockLevel = parseInt(product.stock) || 0;
+                return stockLevel < 10;
+            });
+            
+            loadLowStockAlertsFromAPI(lowStockProducts);
         }
         
         function loadBestSellers() {

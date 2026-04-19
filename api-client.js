@@ -175,7 +175,320 @@ const AnalyticsAPI = {
     }
 };
 
+// Settings API
+const SettingsAPI = {
+    async getAll() {
+        try {
+            const response = await fetch(API_BASE + 'settings.php');
+            return await response.json();
+        } catch (e) {
+            console.error('Error fetching settings:', e);
+            return {};
+        }
+    },
+    
+    async save(settings) {
+        try {
+            const response = await fetch(API_BASE + 'settings.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(settings)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error saving settings:', e);
+            return { error: e.message };
+        }
+    }
+};
+
+// Delivery Zones API
+const DeliveryZonesAPI = {
+    async getAll() {
+        try {
+            const response = await fetch(API_BASE + 'delivery-zones.php');
+            return await response.json();
+        } catch (e) {
+            console.error('Error fetching zones:', e);
+            return [];
+        }
+    },
+    
+    async add(zone) {
+        try {
+            const response = await fetch(API_BASE + 'delivery-zones.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(zone)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error adding zone:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async update(zone) {
+        try {
+            const response = await fetch(API_BASE + 'delivery-zones.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(zone)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error updating zone:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async delete(id) {
+        try {
+            const response = await fetch(API_BASE + 'delivery-zones.php', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error deleting zone:', e);
+            return { error: e.message };
+        }
+    }
+};
+
+// Delivery Slots API
+const DeliverySlotsAPI = {
+    async getAll() {
+        try {
+            const response = await fetch(API_BASE + 'delivery-slots.php');
+            return await response.json();
+        } catch (e) {
+            console.error('Error fetching slots:', e);
+            return [];
+        }
+    },
+    
+    async add(slot) {
+        try {
+            const response = await fetch(API_BASE + 'delivery-slots.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(slot)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error adding slot:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async update(slot) {
+        try {
+            const response = await fetch(API_BASE + 'delivery-slots.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(slot)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error updating slot:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async delete(id) {
+        try {
+            const response = await fetch(API_BASE + 'delivery-slots.php', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error deleting slot:', e);
+            return { error: e.message };
+        }
+    }
+};
+
+// Drivers API
+const DriversAPI = {
+    async getAll() {
+        try {
+            const response = await fetch(API_BASE + 'drivers.php');
+            return await response.json();
+        } catch (e) {
+            console.error('Error fetching drivers:', e);
+            return [];
+        }
+    },
+    
+    async add(driver) {
+        try {
+            const response = await fetch(API_BASE + 'drivers.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(driver)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error adding driver:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async update(driver) {
+        try {
+            const response = await fetch(API_BASE + 'drivers.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(driver)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error updating driver:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async delete(id) {
+        try {
+            const response = await fetch(API_BASE + 'drivers.php', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error deleting driver:', e);
+            return { error: e.message };
+        }
+    }
+};
+
+// Reviews API
+const ReviewsAPI = {
+    async getAll() {
+        try {
+            const response = await fetch(API_BASE + 'reviews.php');
+            return await response.json();
+        } catch (e) {
+            console.error('Error fetching reviews:', e);
+            return [];
+        }
+    },
+    
+    async add(review) {
+        try {
+            const response = await fetch(API_BASE + 'reviews.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(review)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error adding review:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async approve(id, isApproved = 1) {
+        try {
+            const response = await fetch(API_BASE + 'reviews.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, isApproved })
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error approving review:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async delete(id) {
+        try {
+            const response = await fetch(API_BASE + 'reviews.php', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error deleting review:', e);
+            return { error: e.message };
+        }
+    }
+};
+
+// Categories API
+const CategoriesAPI = {
+    async getAll() {
+        try {
+            const response = await fetch(API_BASE + 'categories.php');
+            return await response.json();
+        } catch (e) {
+            console.error('Error fetching categories:', e);
+            return [];
+        }
+    },
+    
+    async add(category) {
+        try {
+            const response = await fetch(API_BASE + 'categories.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(category)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error adding category:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async update(category) {
+        try {
+            const response = await fetch(API_BASE + 'categories.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(category)
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error updating category:', e);
+            return { error: e.message };
+        }
+    },
+    
+    async delete(id) {
+        try {
+            const response = await fetch(API_BASE + 'categories.php', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            return await response.json();
+        } catch (e) {
+            console.error('Error deleting category:', e);
+            return { error: e.message };
+        }
+    }
+};
+
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { ProductsAPI, SlideshowAPI, OrdersAPI, AnalyticsAPI };
+    module.exports = { 
+        ProductsAPI, 
+        SlideshowAPI, 
+        OrdersAPI, 
+        AnalyticsAPI,
+        SettingsAPI,
+        DeliveryZonesAPI,
+        DeliverySlotsAPI,
+        DriversAPI,
+        ReviewsAPI,
+        CategoriesAPI
+    };
 }

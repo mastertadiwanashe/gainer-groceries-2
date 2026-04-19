@@ -400,6 +400,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="api-client.js"></script>
     <script>
         // Initialize checkout page
         document.addEventListener('DOMContentLoaded', function() {
@@ -698,18 +699,38 @@
                 lastUpdated: now.toISOString()
             };
             
-            // 1. SAVE ORDER
+            // 1. SAVE ORDER TO DATABASE
+            if (typeof OrdersAPI !== 'undefined') {
+                // Format order for API
+                const apiOrder = {
+                    customerName: `${formData.get('firstName')} ${formData.get('lastName')}`,
+                    customerEmail: formData.get('email'),
+                    customerPhone: formData.get('phone'),
+                    deliveryAddress: `${formData.get('address')}, ${formData.get('area')}, ${formData.get('city')}`,
+                    deliveryZone: formData.get('area') || 'default',
+                    deliverySlot: formData.get('deliveryTime'),
+                    deliveryInstructions: formData.get('notes') || '',
+                    total: total,
+                    items: cart
+                };
+                
+                // Save to database
+                OrdersAPI.create(apiOrder).then(response => {
+                    if (response.success) {
+                        console.log('Order saved to database:', response.orderNumber);
+                        orderData.orderNumber = response.orderNumber;
+                    }
+                }).catch(e => {
+                    console.error('Error saving to database:', e);
+                });
+            }
+            
+            // 2. ALSO SAVE LOCALLY (for offline/backup)
             const orders = JSON.parse(localStorage.getItem('orders') || '[]');
             orders.push(orderData);
             localStorage.setItem('orders', JSON.stringify(orders));
             
-            // 2. UPDATE OR CREATE CUSTOMER
-            updateCustomerRecord(orderData.customer, orderId, total);
-            
-            // 3. UPDATE SALES ANALYTICS
-            updateSalesAnalytics(total, cart);
-            
-            // 4. SEND ADMIN NOTIFICATION
+            // 3. SEND ADMIN NOTIFICATION
             sendAdminNotification(orderData);
             
             // Show success message
